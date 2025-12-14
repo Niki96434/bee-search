@@ -1,0 +1,19 @@
+.header {
+  box-sizing: border-box;
+  position: sticky;
+  top: 0;
+  height: 113px;
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+  padding-left: 240px;
+  padding-right: 240px;
+  padding: 60px 60px;
+  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+
+}
+.header-content {
+  display: flex;
+  justify-content: flex-start;
+}
+
+

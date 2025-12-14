@@ -1,0 +1,26 @@
+.container-form {
+    width: 1110;
+    height: 100;
+}
+
+.title {
+    font-size: large;
+    font-weight: 700;
+}
+
+.title-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    padding: 50px;
+}
+
+button {
+    background-color: gray;
+}
+
+input {
+    border-radius: 10px;
+}
