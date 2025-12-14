@@ -8,8 +8,8 @@
      const [select, selectedCard] = useState(null)
       return (
         <>
-        {data.map(i => (<Card key={i.id} url={i.imgs} description={i.titleArticle} handleClickCard={() => {selectedCard(i)
-                                                                                                           setCloseCard(true)}} />))}
+        <div className='containerList'>{data.map(i => (<Card key={i.id} url={i.imgs} description={i.titleArticle} handleClickCard={() => {selectedCard(i)
+                                                                                                           setCloseCard(true)}} />))}</div>
                        {select && closeCard && (<ModalArticle handleCloseCard={() => setCloseCard(false)}>{select.fullTextArticle}</ModalArticle>)}
 
         </>)
