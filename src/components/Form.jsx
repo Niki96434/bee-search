@@ -1,17 +1,7 @@
 import './Form.css'
 import Button from './Button'
+import { useState } from 'react'
 export default function Form() {
-    // const formElem = document.getElementById('form');
-    //         formElem.onsubmit = async (e) => {
-    //             e.preventDefault()
-    //             let request = await fetch('тут твой урл', 
-    //             {
-    //                 method:'POST',
-    //                 body: new FormData(formElem)
-    //             })
-    //             let response = await request.json()
-    //             console.log(response)
-    //         }
     function handleClick() {
         alert('типа ищем статью')
     }

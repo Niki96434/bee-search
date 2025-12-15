@@ -1,5 +1,5 @@
 export default function ModalArticle({children, handleCloseCard}) {
-    return (
+  return (
         <>
   <div
     data-dialog-backdrop="modal"
