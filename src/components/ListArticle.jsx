@@ -7,13 +7,18 @@
   export default function GetCard() {
      const [closeCard, setCloseCard] = useState(false)
      const [select, selectedCard] = useState(null)
-     const saveTitle = localStorage.getItem("titleArticle")
-     const saveImg = localStorage.getItem("imgs")
-     const saveContent = localStorage.getItem("fullTextArticle")
+     const [modal, getModal] = useState(false)
+     const saveTitle = JSON.parse(localStorage.getItem("titleArticle"))
+     const saveImg = JSON.parse(localStorage.getItem("imgs"))
+     const saveContent = JSON.parse(localStorage.getItem("fullTextArticle"))
+     function getModalWindow() {
+      getModal(true)
+     }
       return (
         <>
         <div className='containerList'>
-          <CardLS saveTitle={saveTitle} saveImg={saveImg} />
+          {saveTitle!= '' && <CardLS saveTitle={saveTitle} saveImg={saveImg} handleClickCard={getModalWindow}/>}
+          {modal && <ModalArticle handleCloseCard={() => getModal(false)}>{saveContent}</ModalArticle>}
           {data.map(i => (<Card key={i.id} url={i.imgs} description={i.titleArticle} handleClickCard={() => {selectedCard(i)
                                                                                                            setCloseCard(true)}} />))}
         </div>

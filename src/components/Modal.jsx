@@ -14,7 +14,7 @@ export default function Modal({close}) {
   
   function handleSubmit() { // при нажатии на кнопку "добавить" мы добавляем объект статьи
      setArticles({titleArticle, imgs, fullTextArticle})
-     alert('добавили в ЛС статью')
+     alert('добавили статью')
   }
 
   

@@ -3,7 +3,7 @@ import Button from './Button'
 import { useState } from 'react'
 export default function Form() {
     function handleClick() {
-        alert('типа ищем статью')
+        console.log('ищем статью')
     }
     return (
     <div className='container-form'>
