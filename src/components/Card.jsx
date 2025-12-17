@@ -1,6 +1,6 @@
 export default function Card({id, url, description, handleClickCard}) {
     return(
-    <div key={id} className="max-w-sm mx-auto mt-10 bg-white border border-gray-200 rounded-lg shadow">
+    <div key={id} className="max-w-sm mt-10 bg-white border border-gray-200 rounded-lg shadow">
       <img
         className="rounded-t-lg"
         src={url}
