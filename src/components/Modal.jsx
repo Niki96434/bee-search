@@ -1,5 +1,4 @@
 import './Modal.css'
-import data from '../data.json'
 import { useState, useEffect} from "react"
 
 export default function Modal({close}) {
