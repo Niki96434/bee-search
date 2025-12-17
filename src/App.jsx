@@ -11,7 +11,7 @@ export default function App() {
   const [articles, setArticles] = useState([])
   const [loading, setLoading] = useState(false)
   const [currentPage, setCurrentPage] = useState(1) // страница на которой находятся - первая(offset)
-  const [articlesPerPage] = useState(10) // статей в страничке (limit)
+  const [articlesPerPage] = useState(20) // статей в страничке (limit)
   const indexOfLastArticle = currentPage * articlesPerPage;  // 1 * 10 = 10 индекс последней статьи 
   const indexOfFirstArticle = indexOfLastArticle - articlesPerPage; // 10 - 10 = 0 - индекс первой статьи 
   const currentArticles = articles.slice(indexOfFirstArticle, indexOfLastArticle); // делим массив со статьями, который нам поступил от 0(1) до 10
