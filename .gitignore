@@ -1,0 +1,11 @@
+# Node
+node_modules/
+
+# DB
+*.db
+
+# Env
+.env
+
+# Build
+dist/
