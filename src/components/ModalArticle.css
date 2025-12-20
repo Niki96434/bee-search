@@ -1,0 +1,5 @@
+.scroll {
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    max-height: 700px;
+}

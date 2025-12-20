@@ -1,9 +1,9 @@
-export default function Card({id, url, description, handleClickCard}) {
+export default function Card({article, handleClickCard}) {
     return(
-    <div key={id} className="max-w-sm mt-10 bg-white border border-gray-200 rounded-lg shadow">
+    <div className="max-w-sm mt-10 bg-white border border-gray-200 rounded-lg shadow">
       <img
         className="rounded-t-lg"
-        src={url}
+        src={article.img}
         alt=""
       />
 
@@ -13,7 +13,7 @@ export default function Card({id, url, description, handleClickCard}) {
         </h5> */}
 
         <p className="mb-3 font-normal text-gray-700">
-          {description}
+          {article.title}
         </p>
 
         <button onClick={handleClickCard}

@@ -7,9 +7,22 @@ export default function ModalArticle({children, handleCloseCard}) {
     className="fixed inset-0 z-[999] grid h-screen w-screen place-items-center bg-black bg-opacity-60 backdrop-blur-sm transition-opacity duration-300"
   >
     <div
-      data-dialog="modal"
-      className="relative m-4 p-4 w-2/5 min-w-[40%] max-w-[40%] rounded-lg bg-white shadow-sm"
-    >
+  data-dialog="modal"
+  className="
+    relative
+    m-4
+    p-4
+    w-2/5
+    min-w-[40%]
+    max-w-[40%]
+    max-h-[80vh]
+    overflow-hidden
+    rounded-lg
+    bg-white
+    shadow-sm
+  "
+>
+
        <div className="flex shrink-0 flex-wrap items-center pt-4 justify-end">
         <button onClick={handleCloseCard}
           data-dialog-close="true"
@@ -19,9 +32,10 @@ export default function ModalArticle({children, handleCloseCard}) {
           Закрыть
         </button>
       </div>
-      <div className="relative border-t border-slate-200 py-4 leading-normal text-slate-600 font-light">
+      <div className="relative border-t border-slate-200 py-4 leading-normal text-slate-600 font-light overflow-y-auto max-h-[65vh]">
         {children}
       </div>
+
       
     </div>
   </div>

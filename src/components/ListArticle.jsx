@@ -21,11 +21,11 @@
         <div className='containerList'>
           {/* {saveTitle != '' && <CardLS saveTitle={saveTitle} saveImg={saveImg} handleClickCard={getModalWindow}/>}
           {modal && <ModalArticle handleCloseCard={() => getModal(false)}>{saveContent}</ModalArticle>} */}
-          {Array.isArray(articles) && articles.map(i => (<Card key={i.id} url={i.imgs} description={i.titleArticle} handleClickCard={() => {selectedCard(i)
+          {Array.isArray(articles) && articles.map(i => (<Card key={i.id} article={i} handleClickCard={() => {selectedCard(i)
                                                                                                            setCloseCard(true)}} />))}
                                                                                                            {console.log('articles in ListArticle:', articles)}
         </div>
-                       {select && closeCard && (<ModalArticle handleCloseCard={() => setCloseCard(false)}>{select.fullTextArticle}</ModalArticle>)}
+                       {select && closeCard && (<ModalArticle handleCloseCard={() => setCloseCard(false)}>{select.content}</ModalArticle>)}
 
         </>)
 }

@@ -1,10 +1,11 @@
+import './ModalArticle.css'
 export default function ModalArticleTwo({children, handleCloseCard}) {
   return (
         <>
   <div
     data-dialog-backdrop="modal"
     data-dialog-backdrop-close="true"
-    className="fixed inset-0 z-[999] grid h-screen w-screen place-items-center bg-black bg-opacity-60 backdrop-blur-sm transition-opacity duration-300"
+    className=" fixed inset-0 grid h-screen w-screen place-items-center bg-black bg-opacity-60 backdrop-blur-sm transition-opacity duration-300 scroll"
   >
     <div
       data-dialog="modal"
@@ -19,7 +20,7 @@ export default function ModalArticleTwo({children, handleCloseCard}) {
           Закрыть
         </button>
       </div>
-      <div className="relative border-t border-slate-200 py-4 leading-normal text-slate-600 font-light">
+      <div className=" scroll relative border-t border-slate-200 py-4 leading-normal text-slate-600 font-light">
         {children}
       </div>
       

@@ -1,10 +1,7 @@
 import './Form.css'
 import Button from './Button'
 import { useState } from 'react'
-export default function Form() {
-    function handleClick() {
-        console.log('ищем статью')
-    }
+export default function Form({handleClick, search, handleInput}) {
     return (
     <div className='container-form'>
             <div className="title-form">
@@ -20,11 +17,13 @@ export default function Form() {
                     </label>
                     <div className="relative">
                     <input
+                        value={search}
                         type="search"
                         id="search"
                         className="block w-full p-3 ps-9 bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
                         placeholder="Search"
                         required=""
+                        onChange={handleInput}
                     />
                     <Button
                         onClick={handleClick}
