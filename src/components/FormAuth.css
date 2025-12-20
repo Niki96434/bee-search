@@ -1,0 +1,7 @@
+.modal-container {
+    position: fixed;
+    margin: auto;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    z-index: 1000000;
+}
