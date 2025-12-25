@@ -1,50 +1,87 @@
-const express = require("express");
-const cors = require("cors");
-const Database = require('better-sqlite3');
+const express = require('express');
+const cors = require('cors');
 const bcrypt = require('bcrypt');
+const sqlite3 = require('sqlite3').verbose();
 
 const app = express();
-app.use(cors()) // протокол совместного использования ресурсов между источниками для веб-безопасности
-// app.use(express.static(path.join(__dirname, "public"))) // доступ к статичным файлам
-const db = new Database('our_database.db');
-app.use(express.json()) // перевод клиентских запросов из json
 
-db.prepare(`
+// middleware
+app.use(cors());
+app.use(express.json());
+
+// database
+const db = new sqlite3.Database('./our_database.db', (err) => {
+  if (err) {
+    console.error('DB error:', err.message);
+  } else {
+    console.log('Connected to SQLite database');
+  }
+});
+
+// create tables
+db.run(`
   CREATE TABLE IF NOT EXISTS articles (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     title TEXT,
     img TEXT,
     content TEXT
   )
-`).run();
+`);
 
+db.run(`
+  CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    email TEXT UNIQUE,
+    password TEXT
+  )
+`);
+
+// routes
+
+// GET articles (with search)
 app.get('/articles', (req, res) => {
-  const q = req.query.q || ''; // req - объект запроса(/articles), а q - параметр в URL (/articles?id=...)
-  const rows = db.prepare(`
+  const q = `%${req.query.q || ''}%`;
+
+  db.all(
+    `
     SELECT * FROM articles
     WHERE title LIKE ? OR content LIKE ?
     ORDER BY id DESC
-  `).all(`%${q}%`, `%${q}%`);
-
-  res.json(rows);
+    `,
+    [q, q],
+    (err, rows) => {
+      if (err) {
+        return res.status(500).json({ error: err.message });
+      }
+      res.json(rows);
+    }
+  );
 });
 
+// POST article
 app.post('/articles', (req, res) => {
-  console.log('BODY:', req.body);
-  const { title, img, content } = req.body; // деструктуризация тела запроса
+  const { title, img, content } = req.body;
 
-  if (!title || !img ||!content) {
+  if (!title || !img || !content) {
     return res.status(400).json({ error: 'Missing fields' });
   }
 
-  db.prepare(`
+  db.run(
+    `
     INSERT INTO articles (title, img, content)
     VALUES (?, ?, ?)
-  `).run(title, img, content);
-
-  res.json({ status: 'ok' });
+    `,
+    [title, img, content],
+    function (err) {
+      if (err) {
+        return res.status(500).json({ error: err.message });
+      }
+      res.json({ status: 'ok', id: this.lastID });
+    }
+  );
 });
 
+// REGISTER
 app.post('/register', async (req, res) => {
   const { email, password } = req.body;
 
@@ -52,28 +89,37 @@ app.post('/register', async (req, res) => {
     return res.status(400).json({ error: 'Missing fields' });
   }
 
-  // проверяем, есть ли пользователь
-  const existingUser = db
-    .prepare('SELECT * FROM users WHERE email = ?')
-    .get(email);
+  db.get(
+    'SELECT * FROM users WHERE email = ?',
+    [email],
+    async (err, user) => {
+      if (err) {
+        return res.status(500).json({ error: err.message });
+      }
 
-  if (existingUser) {
-    return res.status(409).json({ error: 'User already exists' });
-  }
+      if (user) {
+        return res.status(409).json({ error: 'User already exists' });
+      }
 
-  // хэшируем пароль
-  const hashedPassword = await bcrypt.hash(password, 10);
+      const hashedPassword = await bcrypt.hash(password, 10);
 
-  db.prepare(`
-    INSERT INTO users (email, password)
-    VALUES (?, ?)
-  `).run(email, hashedPassword);
-
-  res.json({ status: 'registered' });
+      db.run(
+        'INSERT INTO users (email, password) VALUES (?, ?)',
+        [email, hashedPassword],
+        (err) => {
+          if (err) {
+            return res.status(500).json({ error: err.message });
+          }
+          res.json({ status: 'registered' });
+        }
+      );
+    }
+  );
 });
 
-
+// start server (Render-friendly)
 const PORT = process.env.PORT || 3000;
+
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });
