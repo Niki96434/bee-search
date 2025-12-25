@@ -6,7 +6,6 @@ const bcrypt = require('bcrypt');
 const app = express();
 app.use(cors()) // протокол совместного использования ресурсов между источниками для веб-безопасности
 // app.use(express.static(path.join(__dirname, "public"))) // доступ к статичным файлам
-const port = 3000;
 const db = new Database('our_database.db');
 app.use(express.json()) // перевод клиентских запросов из json
 
@@ -74,6 +73,7 @@ app.post('/register', async (req, res) => {
 });
 
 
-app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server listening on ${PORT}`);
 });
